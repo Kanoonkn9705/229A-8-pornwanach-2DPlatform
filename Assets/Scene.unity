@@ -892,6 +892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff24ae3a830a44340a5e2ca8833f781d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
 --- !u!4 &620366148 stripped
@@ -1450,8 +1451,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492648163110c38478ad7e9ad61abb33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  rb: {fileID: 0}
+  health: 0
+  anim: {fileID: 975193273}
+  rb: {fileID: 975193274}
+  velocity: {x: -1, y: 0}
+  movePoints:
+  - {fileID: 1931042278}
+  - {fileID: 925526043}
+--- !u!95 &975193273 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9576784, guid: 3eeab7ca4bdca4ba382826bdc99b4911, type: 3}
+  m_PrefabInstance: {fileID: 341433136}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &975193274 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 5099268, guid: 3eeab7ca4bdca4ba382826bdc99b4911, type: 3}
+  m_PrefabInstance: {fileID: 341433136}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &979354234 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 443456, guid: 0cc53454d87ad45c3bafdbf11b7d3b32, type: 3}
@@ -2121,8 +2137,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3cf849cd81a6bf40bbf101c31266004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
+  attackRange: 6
+  player: {fileID: 579340892}
+  bullet: {fileID: 115806, guid: 40466c5ac40024bbca1e4b144cdf43c2, type: 3}
+  bulletSpawnPoint: {fileID: 1860915635}
+  bulletWaitTime: 1
+  bulletTimer: 0
 --- !u!1001 &1374137633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2709,7 +2732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11440140, guid: 6dde6029886a24408b05eced6b5964a6, type: 3}
       propertyPath: jumpForce
-      value: 350
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 11440140, guid: 6dde6029886a24408b05eced6b5964a6, type: 3}
       propertyPath: whatIsGround.m_Bits
