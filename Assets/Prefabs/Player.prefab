@@ -218,7 +218,7 @@ MonoBehaviour:
   groundCheck: {fileID: 467490}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   jumpForce: 700
 --- !u!61 &6128888
 BoxCollider2D:
