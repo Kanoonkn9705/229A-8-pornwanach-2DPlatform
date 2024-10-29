@@ -2,47 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crocodile : Enemy
+public class Crocodile : Enemy , IShootable
 {
-    [SerializeField] private float attackRange;
+    float attackRange;
+    public float AttackRange { get { return attackRange; } set { attackRange = value; } }
     [SerializeField] private Player player;
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private float bulletWaitTime;
-    [SerializeField] private float bulletTimer;
+
+    [SerializeField]
+    GameObject bullet;
+    public GameObject Bullet { get { return bullet; } set { bullet = value; } }
+
+    [SerializeField]
+    Transform spawnPoint;
+    public Transform SpawnPoint { get { return spawnPoint; } set { spawnPoint = value; } }
+
+    public float WaitTime { get; set; }
+    public float ReloadTime { get; set; }
 
     private void Start()
     {
         Init(100);
-        Behavior();
+        WaitTime = 0.0f;
+        ReloadTime = 1.0f;
+        DamageHit = 30;
+        attackRange = 6;
+        player = GameObject.FindObjectOfType<Player>();
     }
     
-    private void Update()
+    void Update()
     {
-        bulletTimer -= Time.deltaTime;
-        Behavior();
-        if (bulletTimer < 0 )
-        {
-            bulletTimer = bulletWaitTime;
-        }
+        WaitTime += Time.fixedDeltaTime;
+        Behavior();    
     }
 
     public override void Behavior()
     {
         Vector2 direction = player.transform.position - transform.position;
-        float distance = direction.magnitude;
-
-        if (distance < attackRange)
+        if (direction.magnitude < attackRange)
         {
             Shoot();
         }
     }
 
-    private void Shoot()
+    public void Shoot()
     {
-        if (bulletTimer < 0)
+        if (WaitTime >= ReloadTime)
         {
-            Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);
+            Instantiate(bullet, spawnPoint.position, Quaternion.identity);
+
+            WaitTime = 0;
         }
     }
 }

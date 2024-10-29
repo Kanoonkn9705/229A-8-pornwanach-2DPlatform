@@ -4,6 +4,11 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
+    public void Init(int newHealth)
+    {
+        Health = newHealth;
+    }
+
     [SerializeField] private int health;
     public int Health
     {
@@ -22,16 +27,19 @@ public abstract class Character : MonoBehaviour
 
     public bool IsDead()
     {
-        return Health <= 0;
+        if (Health <= 0)
+        {
+            Destroy(this.gameObject);
+            return true;
+        }
+        else return false;
     }
 
     public void TakeDamage(int damage)
     {
         Health -= damage;
+
+        IsDead();
     }
     
-    public void Init(int newHealth)
-    {
-        Health = newHealth;
-    }
 }

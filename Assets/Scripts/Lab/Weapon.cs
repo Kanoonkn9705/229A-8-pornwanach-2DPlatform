@@ -17,11 +17,11 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    public string owner;
+    public string Owner;
 
     private void Start()
     {
-        Move();
+        Move(); 
     }
 
     public void OnHitWith()
