@@ -32,7 +32,7 @@ public class Crocodile : Enemy , IShootable
     void Update()
     {
         WaitTime += Time.fixedDeltaTime;
-        Behavior();    
+        Behavior();
     }
 
     public override void Behavior()
