@@ -4,36 +4,33 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    [SerializeField] private int damage;
-    public int Damege
-    {
-        get
-        {
-            return damage;
-        }
-        set
-        {
-            damage = value;
-        }
-    }
+    [SerializeField] int damage;
+    public int Damage { get { return damage; } set { damage = value; } }
 
-    public string Owner;
+    public IShootable shooter;
 
-    private void Start()
-    {
-        Move(); 
-    }
-
-    public void OnHitWith()
-    {
-
-    }
+    public abstract void OnHitWith(Character character);
 
     public abstract void Move();
 
+    public void Init(int newDamage, IShootable newOnwer)
+    {
+        Damage = newDamage;
+        shooter = newOnwer;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        OnHitWith(other.GetComponent<Character>());
+        Destroy(this.gameObject, 5f);
+    }
+
     public int GetShootDirection()
     {
-        return 1;
+        float shootDir = shooter.SpawnPoint.position.x - shooter.SpawnPoint.parent.position.x;
+        if (shootDir > 0)
+        return 1; //right direction
+        else return -1; //left direction
     }
 
 

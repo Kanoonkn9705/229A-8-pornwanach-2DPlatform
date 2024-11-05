@@ -7,8 +7,8 @@ public interface IShootable
     Transform SpawnPoint { get; set; }
     GameObject Bullet { get; set; }
 
-    float ReloadTime { get; set; }
-    float WaitTime { get; set; }
+    float rockWaitTime { get; set; }
+    float rockTimer { get; set; }
 
     void Shoot();
 }

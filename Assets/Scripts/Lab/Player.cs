@@ -12,22 +12,25 @@ public class Player : Character , IShootable
     Transform spawnPoint;
     public Transform SpawnPoint { get { return spawnPoint; } set { spawnPoint = value; } }
 
-    public float ReloadTime { get; set; }
-    public float WaitTime { get; set; }
+    public float rockWaitTime { get; set; }
+    public float rockTimer { get; set; }
 
     public void Shoot()
     {
-        if (Input.GetButtonDown("Fire1") && WaitTime > ReloadTime)
+        if (Input.GetButtonDown("Fire1") && rockWaitTime >= rockTimer)
         {
-            Instantiate(bullet, SpawnPoint.position, Quaternion.identity);
+            GameObject obj = Instantiate(bullet, SpawnPoint.position, Quaternion.identity);
+            Banana banana = obj.GetComponent<Banana>();
+            banana.Init(10, this);
+            
         }
     }
 
     void Start()
     {
         Init(100);
-        WaitTime = 0.0f;
-        ReloadTime = 1.0f;
+        rockTimer = 0.0f;
+        rockWaitTime = 1.0f;
     }
 
     void Update()
@@ -37,8 +40,20 @@ public class Player : Character , IShootable
 
     void FixedUpdate() 
     {
-        WaitTime += Time.fixedDeltaTime;
+        rockWaitTime += Time.fixedDeltaTime;
     }
 
+    void onCollisionEnter2D(Collision collision)
+    {
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            OnHitWith(enemy);
+        }
+    }
 
+    public void OnHitWith(Enemy enemy)
+    {
+        TakeDamage(enemy.DamageHit);
+    }
 }

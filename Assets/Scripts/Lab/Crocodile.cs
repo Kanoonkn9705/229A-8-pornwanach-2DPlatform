@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Crocodile : Enemy , IShootable
 {
-    float attackRange;
+    [SerializeField] private float attackRange;
     public float AttackRange { get { return attackRange; } set { attackRange = value; } }
     [SerializeField] private Player player;
 
@@ -16,22 +16,19 @@ public class Crocodile : Enemy , IShootable
     Transform spawnPoint;
     public Transform SpawnPoint { get { return spawnPoint; } set { spawnPoint = value; } }
 
-    public float WaitTime { get; set; }
-    public float ReloadTime { get; set; }
+    public float rockWaitTime { get; set; }
+    public float rockTimer { get; set; }
 
     private void Start()
     {
-        Init(100);
-        WaitTime = 0.0f;
-        ReloadTime = 1.0f;
-        DamageHit = 30;
-        attackRange = 6;
-        player = GameObject.FindObjectOfType<Player>();
+        Init(50);
+        rockWaitTime = 2.0f;
+        rockTimer = 0.0f;
     }
     
-    void Update()
+    void FixedUpdate()
     {
-        WaitTime += Time.fixedDeltaTime;
+        rockTimer -= Time.deltaTime;
         Behavior();
     }
 
@@ -46,11 +43,15 @@ public class Crocodile : Enemy , IShootable
 
     public void Shoot()
     {
-        if (WaitTime >= ReloadTime)
+        if (rockTimer <= 0f)
         {
-            Instantiate(bullet, spawnPoint.position, Quaternion.identity);
+            animator.SetTrigger("Shoot");
+            GameObject obj = Instantiate(bullet, SpawnPoint.position, Quaternion.identity);
+            
+            Rock rockScipt = obj.GetComponent<Rock>();
+            rockScipt.Init(20, this);
 
-            WaitTime = 0;
+            rockTimer = rockWaitTime;
         }
     }
 }
