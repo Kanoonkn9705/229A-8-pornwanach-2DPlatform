@@ -9,7 +9,7 @@ public class Rock : Weapon
 
     void Start()
     {
-        Damage = 20;
+        Damage = 30;
         force = new Vector2 (GetShootDirection() * 100, 400);
         Move();
     }

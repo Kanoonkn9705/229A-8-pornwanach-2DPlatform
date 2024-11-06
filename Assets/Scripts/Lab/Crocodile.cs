@@ -21,7 +21,8 @@ public class Crocodile : Enemy , IShootable
 
     private void Start()
     {
-        Init(50);
+        Init(100);
+        healthBar.SetMaxHealth(Health);
         rockWaitTime = 2.0f;
         rockTimer = 0.0f;
     }

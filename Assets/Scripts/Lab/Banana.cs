@@ -8,8 +8,8 @@ public class Banana : Weapon
 
     void Start()
     {
-        Damage = 10;
-        speed = 4.0f * GetShootDirection();
+        Damage = 25;
+        speed = 5.0f * GetShootDirection();
     }
 
     private void FixedUpdate()

@@ -10,8 +10,8 @@ public class Ant : Enemy
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Init(10);
-        Debug.Log(Health);
+        Init(50);
+        healthBar.SetMaxHealth(Health);
         Behavior();
     }
                           

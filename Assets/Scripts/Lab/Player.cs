@@ -28,7 +28,8 @@ public class Player : Character , IShootable
 
     void Start()
     {
-        Init(100);
+        Init(150);
+        healthBar.SetMaxHealth(Health);
         rockTimer = 0.0f;
         rockWaitTime = 1.0f;
     }

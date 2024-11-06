@@ -24,6 +24,7 @@ public abstract class Character : MonoBehaviour
 
     public Animator animator;
     public Rigidbody2D rb;
+    public HealthBar healthBar;
 
     public bool IsDead()
     {
@@ -38,6 +39,7 @@ public abstract class Character : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        healthBar.SetHealth(Health);
 
         IsDead();
     }
